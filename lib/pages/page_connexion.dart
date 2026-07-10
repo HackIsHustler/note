@@ -4,7 +4,6 @@ import '../widgets/zone_de_saisie.dart';
 import '../routes/routes.dart';
 import '../pages/page_acceuil.dart';
 import '../services/database_manager.dart';
-import '../Modeles/utilisateur.dart';
 import '../style/style.dart';
 
 
@@ -55,6 +54,11 @@ class _PageConnexionState extends State<PageConnexion> {
         });
         return;
       }
+
+      await GestionDeSession.startSession(
+        utilisateur.id!,
+        utilisateur.nomUtilisateur
+      );
       
       _showSnackBar("Connexion réussie", Colors.green);
       // Connexion réussie, naviguer vers la page d'accueil

@@ -6,7 +6,7 @@ import 'package:note/style/style.dart';
 import 'package:note/widgets/zone_affichage_note.dart';
 import 'package:note/services/database_manager.dart';
 import 'package:note/Modeles/notes.dart';
-import 'package:note/Modeles/utilisateur.dart';
+import 'package:note/pages/page_voir_note.dart';
 import '../routes/routes.dart';
 
 class PageAcceuil extends StatefulWidget {
@@ -49,7 +49,6 @@ class _PageAcceuilState extends State<PageAcceuil> {
         _isLoading = false;
       });
     } catch (e) {
-      print("❌ Erreur chargement notes: $e");
       setState(() {
         _isLoading = false;
       });
@@ -86,10 +85,10 @@ class _PageAcceuilState extends State<PageAcceuil> {
               try {
                 final result = await DatabaseManager.deleteNote(id);
                 if (result > 0) {
-                  _showSnackBar("✅ Note supprimée", Colors.green);
+                  _showSnackBar(" Note supprimée", Colors.green);
                   await _chargerNotes(); // Recharger la liste
                 } else {
-                  _showSnackBar("❌ Erreur lors de la suppression", Colors.red);
+                  _showSnackBar(" Erreur lors de la suppression", Colors.red);
                 }
               } catch (e) {
                 _showSnackBar("Erreur: $e", Colors.red);
@@ -276,7 +275,7 @@ class _PageAcceuilState extends State<PageAcceuil> {
                           final note = filteredNotes[index];
                           return Container(
                             margin: const EdgeInsets.symmetric(
-                              horizontal: 4,
+                              horizontal: 8,
                               vertical: 3,
                             ),
                             decoration: BoxDecoration(
@@ -289,6 +288,16 @@ class _PageAcceuilState extends State<PageAcceuil> {
                             child: ZoneAffichageNoteItem(
                               titre: note.titre,
                               contenu: note.contenu ?? '',
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => PageVoirNote(
+                                      noteId: note.id!,
+                                      )
+                                    )
+                                  );
+                              },
                               onEdit: () {
                                 Navigator.push(
                                   context,

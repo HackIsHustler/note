@@ -48,7 +48,9 @@ class PageDeCommencement extends StatelessWidget{
                       "Commencer", 
                       style: AppStyle.textButton,
                       )
-                    )
+                    ),
+
+                    Text("Powered by Mouktar")
           ],
         ),
       ),

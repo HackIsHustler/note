@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note/services/gestion_de_session.dart';
+import 'package:note/pages/page_voir_note.dart';
 import './pages/page_de_commencement.dart';
 import './routes/routes.dart';
 import '../pages/page_connexion.dart';
@@ -19,27 +20,6 @@ void main() async{
 
   //verifie si c'est la rpremiere installation
   final isFirstLaunch = await GestionDeSession.isFirstLaunch();
-
-    // Vérifier si la base fonctionne
-  try {
-    final db = await DatabaseManager.initDb();
-    final result = await db.rawQuery('SELECT name FROM sqlite_master WHERE type="table"');
-    print("✅ Tables dans la base :");
-    for (var table in result) {
-      print("  - ${table['name']}");
-    }
-    
-    // Vérifier le nombre d'utilisateurs
-    final users = await db.rawQuery('SELECT COUNT(*) as count FROM utilisateurs');
-    print("👤 Nombre d'utilisateurs : ${users.first['count']}");
-    
-    // Vérifier le nombre de notes
-    final notes = await db.rawQuery('SELECT COUNT(*) as count FROM notes');
-    print("📝 Nombre de notes : ${notes.first['count']}");
-    
-  } catch (e) {
-    print("❌ Erreur: $e");
-  }
   
   runApp(MonApplication(isLoggedIn:isLoggedIn, isFirstLaunch: isFirstLaunch,));
 }
@@ -76,6 +56,7 @@ class MonApplication extends StatelessWidget{
         AppRoutes.pageAccueil: (context) => PageAcceuil(),
         AppRoutes.nouvelleNote: (context) => PageAjoutNote(),
         AppRoutes.editNote: (context) => PageEditNote(),
+        AppRoutes.pageVoirNote: (context) => PageVoirNote(),
       },
     );
   }

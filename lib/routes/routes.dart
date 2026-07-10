@@ -5,4 +5,5 @@ class AppRoutes {
   static const pageAccueil = '/pageAccueil';
   static const nouvelleNote = '/nouvelleNote';
   static const editNote = '/editNote';
+  static const pageVoirNote = '/voirNote';
 }

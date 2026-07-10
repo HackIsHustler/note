@@ -1,6 +1,4 @@
 
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ZoneAffichageNoteItem  extends StatelessWidget{
@@ -8,6 +6,7 @@ class ZoneAffichageNoteItem  extends StatelessWidget{
   final String contenu;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
+  final VoidCallback onTap;
 
   const ZoneAffichageNoteItem({
     super.key,
@@ -15,25 +14,38 @@ class ZoneAffichageNoteItem  extends StatelessWidget{
     required this.contenu,
     required this.onEdit,
     required this.onDelete,
+    required this.onTap,
     });
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(titre),
-      subtitle: Text(contenu),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          IconButton(
-            icon: Icon(Icons.edit),
-            onPressed: onEdit,
+    return InkWell(
+      onTap: onTap,
+      child: ListTile(
+        title: Text(
+          titre,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          IconButton(
-            icon: Icon(Icons.delete),
-            onPressed: onDelete,
+        subtitle: Text(
+          contenu,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
           ),
-        ],
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              icon: Icon(Icons.edit),
+              onPressed: onEdit,
+            ),
+            IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: onDelete,
+            ),
+          ],
+        ),
       ),
     );
   }
